@@ -8,7 +8,10 @@
   "rules": {
     "linebreak-style": ["error", "windows"],
     "require-jsdoc": "off",
-    "object-curly-spacing": ["error", "always"]
+    "object-curly-spacing": ["error", "always"],
+    "operator-linebreak": "off",
+    "no-debugger": "off",
+    "indent": "off"
   },
   "extends": ["eslint:recommended", "google"]
 }
