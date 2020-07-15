@@ -1,0 +1,1 @@
+- method bind creates new function it should be saved or override to use in addEventListeners + removeEventListener

@@ -13,10 +13,15 @@ class Dom {
     }
 
     this.$el.outerHTML.trim();
+    return this;
   }
 
   on(eventName, callback) {
     this.$el.addEventListener(eventName, callback);
+  }
+
+  off(eventName, callback) {
+    this.$el.removeEventListener(eventName, callback);
   }
 
   clear() {
