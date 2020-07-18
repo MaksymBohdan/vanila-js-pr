@@ -11,7 +11,8 @@
     "object-curly-spacing": ["error", "always"],
     "operator-linebreak": "off",
     "no-debugger": "off",
-    "indent": "off"
+    "indent": "off",
+    "no-unused-vars": "warn"
   },
   "extends": ["eslint:recommended", "google"]
 }
