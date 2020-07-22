@@ -1,1 +1,3 @@
 - method bind creates new function it should be saved or override to use in addEventListeners + removeEventListener
+- document.querySelectorAll vs root.querySelectorAll
+- cache for DOM elements before onmousemove
