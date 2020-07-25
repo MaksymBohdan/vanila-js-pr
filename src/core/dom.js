@@ -74,6 +74,18 @@ class Dom {
   removeClass(className) {
     this.$el.classList.remove(className);
   }
+
+  id(parser) {
+    if (parser) {
+      const parsedValue = this.id().split(':');
+
+      return {
+        row: Number(parsedValue[0]),
+        col: Number(parsedValue[1]),
+      };
+    }
+    return this.$el.dataset.id;
+  }
 }
 
 export const $ = (selector) => {
