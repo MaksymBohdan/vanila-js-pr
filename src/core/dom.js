@@ -59,8 +59,32 @@ class Dom {
     return this.$el.querySelectorAll(selector);
   }
 
+  find(selector) {
+    return $(this.$el.querySelector(selector));
+  }
+
   css(styles = {}) {
     Object.keys(styles).forEach((key) => (this.$el.style[key] = styles[key]));
+  }
+
+  addClass(className) {
+    this.$el.classList.add(className);
+  }
+
+  removeClass(className) {
+    this.$el.classList.remove(className);
+  }
+
+  id(parser) {
+    if (parser) {
+      const parsedValue = this.id().split(':');
+
+      return {
+        row: Number(parsedValue[0]),
+        col: Number(parsedValue[1]),
+      };
+    }
+    return this.$el.dataset.id;
   }
 }
 
