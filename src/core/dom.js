@@ -29,6 +29,10 @@ class Dom {
     return this;
   }
 
+  text(text) {
+    this.$el.textContent = text;
+  }
+
   append(node) {
     if (node instanceof Dom) {
       node = node.$el;
