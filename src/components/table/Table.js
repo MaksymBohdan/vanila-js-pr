@@ -2,16 +2,17 @@ import { ExcelComponent } from '@core/ExcelComponent';
 import { createTable } from './table.template';
 import { resizeHandler } from './table.resize';
 import { TableSelection } from './TableSelection';
-import { isCell, shouldResize, matrix } from './table.functions';
+import { isCell, shouldResize, matrix, nextSelector } from './table.functions';
 import { $ } from '@core/dom';
 
 export class Table extends ExcelComponent {
   static className = 'excel__table';
 
-  constructor($root) {
+  constructor($root, options) {
     super($root, {
       name: 'Table',
       listeners: ['mousedown', 'keydown'],
+      ...options,
     });
   }
 
@@ -21,6 +22,10 @@ export class Table extends ExcelComponent {
     this.selection = new TableSelection();
     const $cell = this.$root.find('[data-id="0:0"]');
     this.selection.select($cell);
+
+    this.$on('formula:input', (text) => {
+      this.selection.current.text(text);
+    });
   }
 
   toHTML() {
@@ -66,30 +71,4 @@ export class Table extends ExcelComponent {
       this.selection.select($next);
     }
   }
-}
-
-function nextSelector(key, { col, row }) {
-  const MIN_VALUE = 0;
-
-  switch (key) {
-    case 'Enter':
-    case 'ArrowDown':
-      row++;
-      break;
-
-    case 'Tab':
-    case 'ArrowRight':
-      col++;
-      break;
-
-    case 'ArrowUp':
-      row = row - 1 < MIN_VALUE ? MIN_VALUE : row - 1;
-      break;
-
-    case 'ArrowLeft':
-      col = col - 1 < MIN_VALUE ? MIN_VALUE : col - 1;
-      break;
-  }
-
-  return `[data-id="${row}:${col}"]`;
 }
