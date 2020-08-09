@@ -1,9 +1,10 @@
+import { $ } from '@core/dom';
 import { ExcelComponent } from '@core/ExcelComponent';
 import { createTable } from './table.template';
 import { resizeHandler } from './table.resize';
 import { TableSelection } from './TableSelection';
 import { isCell, shouldResize, matrix, nextSelector } from './table.functions';
-import { $ } from '@core/dom';
+import { resizeTable } from '../../redux/actions';
 
 export class Table extends ExcelComponent {
   static className = 'excel__table';
@@ -17,7 +18,9 @@ export class Table extends ExcelComponent {
   }
 
   toHTML() {
-    return createTable();
+    const state = this.store.getState();
+
+    return createTable(20, state);
   }
 
   init() {
@@ -26,7 +29,7 @@ export class Table extends ExcelComponent {
     this.selection = new TableSelection();
     const $cell = this.$root.find('[data-id="0:0"]');
 
-    this.select($cell);
+    this.selectCell($cell);
 
     this.$on('formula:input', (text) => {
       this.selection.current.text(text);
@@ -37,9 +40,19 @@ export class Table extends ExcelComponent {
     });
   }
 
+  async tableResize(event) {
+    try {
+      const data = await resizeHandler(event, this.$root);
+
+      this.$dispatch(resizeTable(data));
+    } catch (e) {
+      console.warn(e);
+    }
+  }
+
   onMousedown(event) {
     if (shouldResize(event)) {
-      resizeHandler(event, this.$root);
+      this.tableResize(event);
     }
 
     if (isCell(event)) {
@@ -52,7 +65,7 @@ export class Table extends ExcelComponent {
 
         this.selection.selectGroup($cells);
       } else {
-        this.selection.select($target);
+        this.selectCell($target);
       }
     }
   }
@@ -73,11 +86,11 @@ export class Table extends ExcelComponent {
       const id = this.selection.current.id(true);
       const $next = this.$root.find(nextSelector(key, id));
 
-      this.select($next);
+      this.selectCell($next);
     }
   }
 
-  select($cell) {
+  selectCell($cell) {
     this.selection.select($cell);
     this.$emit('table:select', $cell);
   }
