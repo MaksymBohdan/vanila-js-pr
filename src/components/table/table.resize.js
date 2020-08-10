@@ -54,8 +54,9 @@ export function resizeHandler(event, $root) {
       $resizer.css({ opacity: 0, bottom: '0', right: '0' });
 
       resolve({
-        id: resize === 'col' ? $parent.dataset.col : '',
-        value: newWidthValue,
+        id: $parent.dataset[resize],
+        type: resize,
+        value: resize === 'col' ? newWidthValue : newHeightValue,
       });
     };
   });
