@@ -11,6 +11,14 @@ export function rootReducer(state, { type, data }) {
       };
     }
 
+    case actions.SET_VALUE: {
+      return {
+        ...state,
+        currentText: data.value,
+        dataState: { ...state.dataState, [data.id]: data.value },
+      };
+    }
+
     default:
       return state;
   }

@@ -5,16 +5,20 @@ const CODES = {
 const DEFAULT_WIDTH = 120;
 const DEFAULT_HEIGHT = 24;
 
-function toCell(row, colState) {
+function toCell(row, state) {
   return function (_, col) {
-    const width = (colState[col] || DEFAULT_WIDTH) + 'px';
+    const width = (state.colState[col] || DEFAULT_WIDTH) + 'px';
+    const id = `${row}:${col}`;
+    const content = state.dataState[id] || '';
+
     return `
       <div class="cell" 
         contenteditable 
         data-col="${col}" 
-        data-id="${row}:${col}"
+        data-id="${id}"
         data-type="cell"
         style="width:${width}">
+        ${content}
     </div>`;
   };
 }
@@ -77,7 +81,7 @@ export function createTable(rowsCount = 15, state) {
   for (let row = 0; row < rowsCount; row++) {
     const cells = new Array(colsCount)
       .fill('')
-      .map(toCell(row, colState))
+      .map(toCell(row, state))
       .join('');
 
     rows.push(createRow(row + 1, cells, rowState));

@@ -6,3 +6,10 @@ export const resizeTable = (data) => {
     data,
   };
 };
+
+export const setValue = (data) => {
+  return {
+    type: actions.SET_VALUE,
+    data,
+  };
+};

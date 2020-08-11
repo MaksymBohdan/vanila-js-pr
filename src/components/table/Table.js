@@ -4,7 +4,7 @@ import { createTable } from './table.template';
 import { resizeHandler } from './table.resize';
 import { TableSelection } from './TableSelection';
 import { isCell, shouldResize, matrix, nextSelector } from './table.functions';
-import { resizeTable } from '../../redux/actions';
+import { resizeTable, setValue } from '../../redux/actions';
 
 export class Table extends ExcelComponent {
   static className = 'excel__table';
@@ -33,6 +33,7 @@ export class Table extends ExcelComponent {
 
     this.$on('formula:input', (text) => {
       this.selection.current.text(text);
+      this.updateTextInStore(text);
     });
 
     this.$on('formula:done', () => {
@@ -95,7 +96,11 @@ export class Table extends ExcelComponent {
     this.$emit('table:select', $cell);
   }
 
+  updateTextInStore(value) {
+    this.$dispatch(setValue({ id: this.selection.current.id(), value }));
+  }
+
   onInput(event) {
-    this.$emit('table:input', $(event.target));
+    this.updateTextInStore($(event.target).text());
   }
 }
