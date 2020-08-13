@@ -17,3 +17,11 @@ export function storage(key, data = null) {
 
   return JSON.parse(localStorage.getItem(key));
 }
+
+export function isEqual(a, b) {
+  if (typeof a === 'object' && typeof b === 'object') {
+    return JSON.stringify(a) === JSON.stringify(b);
+  }
+
+  return a === b;
+}
