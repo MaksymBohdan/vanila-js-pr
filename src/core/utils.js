@@ -9,3 +9,19 @@ export function range(start, end) {
 
   return new Array(end - start + 1).fill('').map((_, idx) => start + idx);
 }
+
+export function storage(key, data = null) {
+  if (data) {
+    return localStorage.setItem(key, JSON.stringify(data));
+  }
+
+  return JSON.parse(localStorage.getItem(key));
+}
+
+export function isEqual(a, b) {
+  if (typeof a === 'object' && typeof b === 'object') {
+    return JSON.stringify(a) === JSON.stringify(b);
+  }
+
+  return a === b;
+}
