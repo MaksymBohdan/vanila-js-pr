@@ -5,6 +5,7 @@ import { resizeHandler } from './table.resize';
 import { TableSelection } from './TableSelection';
 import { isCell, shouldResize, matrix, nextSelector } from './table.functions';
 import { resizeTable, setValue } from '../../redux/actions';
+import { defaultStyles } from '../../constants';
 
 export class Table extends ExcelComponent {
   static className = 'excel__table';
@@ -38,6 +39,10 @@ export class Table extends ExcelComponent {
 
     this.$on('formula:done', () => {
       this.selection.current.focus();
+    });
+
+    this.$on('toolbar:applyStyle', (style) => {
+      this.selection.applyStyle(style);
     });
   }
 
@@ -94,6 +99,8 @@ export class Table extends ExcelComponent {
   selectCell($cell) {
     this.selection.select($cell);
     this.$emit('table:select', $cell);
+
+    console.log('st', $cell.getStyles(Object.keys(defaultStyles)));
   }
 
   updateTextInStore(value) {
