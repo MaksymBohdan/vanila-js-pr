@@ -19,6 +19,13 @@ export function rootReducer(state, { type, data }) {
       };
     }
 
+    case actions.CHANGE_STYLES: {
+      return {
+        ...state,
+        currentStyles: { ...data },
+      };
+    }
+
     default:
       return state;
   }

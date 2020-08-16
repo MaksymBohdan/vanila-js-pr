@@ -13,3 +13,10 @@ export const setValue = (data) => {
     data,
   };
 };
+
+export const changeStyles = (data) => {
+  return {
+    type: actions.CHANGE_STYLES,
+    data,
+  };
+};
