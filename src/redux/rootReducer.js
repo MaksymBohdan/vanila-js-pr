@@ -42,6 +42,14 @@ export function rootReducer(state, { type, data }) {
       };
     }
 
+    case actions.CHANGE_TITLE: {
+      console.log('title', data);
+      return {
+        ...state,
+        title: data,
+      };
+    }
+
     default:
       return state;
   }

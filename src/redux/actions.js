@@ -27,3 +27,10 @@ export const applyStyle = (data) => {
     data,
   };
 };
+
+export const changeTitle = (data) => {
+  return {
+    type: actions.CHANGE_TITLE,
+    data,
+  };
+};
