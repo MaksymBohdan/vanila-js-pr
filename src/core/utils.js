@@ -35,3 +35,16 @@ export function toInlineStyles(styles = {}) {
     .map((style) => `${camelToDashCase(style)} : ${styles[style]}; `)
     .join('');
 }
+
+export function debounce(fn, wait) {
+  let timeout;
+  return function (...args) {
+    clearTimeout(timeout);
+
+    timeout = setTimeout(() => {
+      clearTimeout(timeout);
+      // eslint-disable-next-line no-invalid-this
+      fn.apply(this, args);
+    }, wait);
+  };
+}
