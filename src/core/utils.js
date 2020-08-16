@@ -25,3 +25,26 @@ export function isEqual(a, b) {
 
   return a === b;
 }
+
+export function camelToDashCase(str) {
+  return str.replace(/([A-Z])/g, (g) => `-${g[0].toLowerCase()}`);
+}
+
+export function toInlineStyles(styles = {}) {
+  return Object.keys(styles)
+    .map((style) => `${camelToDashCase(style)} : ${styles[style]}; `)
+    .join('');
+}
+
+export function debounce(fn, wait) {
+  let timeout;
+  return function (...args) {
+    clearTimeout(timeout);
+
+    timeout = setTimeout(() => {
+      clearTimeout(timeout);
+      // eslint-disable-next-line no-invalid-this
+      fn.apply(this, args);
+    }, wait);
+  };
+}

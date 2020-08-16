@@ -1,3 +1,6 @@
+import { toInlineStyles } from '../../core/utils';
+import { defaultStyles } from '../../constants';
+
 const CODES = {
   A: 65,
   Z: 90,
@@ -10,6 +13,10 @@ function toCell(row, state) {
     const width = (state.colState[col] || DEFAULT_WIDTH) + 'px';
     const id = `${row}:${col}`;
     const content = state.dataState[id] || '';
+    const styles = toInlineStyles({
+      ...defaultStyles,
+      ...state.stylesState[id],
+    });
 
     return `
       <div class="cell" 
@@ -17,7 +24,7 @@ function toCell(row, state) {
         data-col="${col}" 
         data-id="${id}"
         data-type="cell"
-        style="width:${width}">
+        style="${styles} width:${width}">
         ${content}
     </div>`;
   };
