@@ -4,7 +4,12 @@ import { createTable } from './table.template';
 import { resizeHandler } from './table.resize';
 import { TableSelection } from './TableSelection';
 import { isCell, shouldResize, matrix, nextSelector } from './table.functions';
-import { resizeTable, setValue, changeStyles } from '../../redux/actions';
+import {
+  resizeTable,
+  setValue,
+  changeStyles,
+  applyStyle,
+} from '../../redux/actions';
 import { defaultStyles } from '../../constants';
 
 export class Table extends ExcelComponent {
@@ -43,6 +48,12 @@ export class Table extends ExcelComponent {
 
     this.$on('toolbar:applyStyle', (style) => {
       this.selection.applyStyle(style);
+      this.$dispatch(
+        applyStyle({
+          value: style,
+          ids: this.selection.selectedIds,
+        })
+      );
     });
   }
 

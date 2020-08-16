@@ -20,3 +20,10 @@ export const changeStyles = (data) => {
     data,
   };
 };
+
+export const applyStyle = (data) => {
+  return {
+    type: actions.APPLY_STYLE,
+    data,
+  };
+};

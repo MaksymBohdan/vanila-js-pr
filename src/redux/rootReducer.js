@@ -26,6 +26,22 @@ export function rootReducer(state, { type, data }) {
       };
     }
 
+    case actions.APPLY_STYLE: {
+      const newStyles = data.ids.reduce(
+        (acc, id) => ({
+          ...acc,
+          [id]: { ...state.stylesState[id], ...data.value },
+        }),
+        {}
+      );
+
+      return {
+        ...state,
+        stylesState: { ...newStyles },
+        currentStyles: { ...state.currentStyles, ...data.value },
+      };
+    }
+
     default:
       return state;
   }

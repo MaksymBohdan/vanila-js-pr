@@ -7,8 +7,14 @@ export const defaultState = {
   dataState: {},
   currentText: '',
   currentStyles: defaultStyles,
+  stylesState: {},
 };
 
+const normalize = (state) => ({
+  ...state,
+  currentText: '',
+  currentStyles: defaultStyles,
+});
 export const initialState = storage('excel_data')
-  ? storage('excel_data')
+  ? normalize(storage('excel_data'))
   : defaultState;
