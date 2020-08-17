@@ -11,6 +11,7 @@ import {
   applyStyle,
 } from '../../redux/actions';
 import { defaultStyles } from '../../constants';
+import { parse } from '../../core/utils';
 
 export class Table extends ExcelComponent {
   static className = 'excel__table';
@@ -38,7 +39,8 @@ export class Table extends ExcelComponent {
     this.selectCell($cell);
 
     this.$on('formula:input', (text) => {
-      this.selection.current.text(text);
+      this.selection.current.attr(text);
+      this.selection.current.text(parse(text));
       this.updateTextInStore(text);
     });
 

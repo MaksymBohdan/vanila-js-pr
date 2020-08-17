@@ -48,3 +48,14 @@ export function debounce(fn, wait) {
     }, wait);
   };
 }
+
+export function parse(value = '') {
+  try {
+    if (value.startsWith('=')) {
+      return eval(value.slice(1));
+    }
+    return value;
+  } catch (e) {
+    return value;
+  }
+}
