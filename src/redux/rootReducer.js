@@ -49,6 +49,13 @@ export function rootReducer(state, { type, data }) {
       };
     }
 
+    case actions.UPDATE_DATE: {
+      return {
+        ...state,
+        openedDate: new Date().toJSON(),
+      };
+    }
+
     default:
       return state;
   }

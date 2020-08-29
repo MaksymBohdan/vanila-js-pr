@@ -34,3 +34,9 @@ export const changeTitle = (data) => {
     data,
   };
 };
+
+export const updateDate = () => {
+  return {
+    type: actions.UPDATE_DATE,
+  };
+};
