@@ -1,6 +1,5 @@
-import { $ } from '@core/dom';
+import { $ } from '../dom';
 import { ActiveRoute } from './ActiveRoute';
-// import { Page } from '../Page';
 
 export class Router {
   constructor(selector, routes) {
