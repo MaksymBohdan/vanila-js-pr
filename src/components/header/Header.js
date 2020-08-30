@@ -47,7 +47,6 @@ export class Header extends ExcelComponent {
     if ($target.dataset.button === 'remove') {
       const decision = confirm('are you sure ?');
       if (decision) {
-        console.log('excel:${ActiveRoute.param}', `excel:${ActiveRoute.param}`);
         localStorage.removeItem(`excel:${ActiveRoute.param}`);
         ActiveRoute.navigate('');
       }
